@@ -2,10 +2,10 @@
 
 **`creating api key on data-gov-in`**
 - register and login
-- got to my account section(logged In) and
+- go to my account section(logged In) and
 - just click on create API key; there you have it
 - this key can be used for any datasset
-- to see how to use it [look at]](how-to-use-dataGov-APIs.ipynb)
+- to see how to use it [look at](how-to-use-dataGov-APIs.ipynb)
 
 ---
 **`important open data websites`**
