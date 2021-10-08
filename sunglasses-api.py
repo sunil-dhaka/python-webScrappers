@@ -1,0 +1,34 @@
+import requests
+import pandas as pd
+import json
+
+url = "https://www.sunglasshut.com/wcs/resources/plp/11352/byCategoryId/3074457345626651837"
+
+allSunglasses=[]
+for page in range(1,12):
+    querystring = {"isProductNeeded":"true","orderBy":["default","default","default"],"pageSize":"100","responseFormat":"json","isChanelCategory":"false","currency":"GBP","pageView":"image","viewTaskName":"CategoryDisplayView","DM_PersistentCookieCreated":"true","beginIndex":"0","categoryId":"3074457345626651837","catalogId":"20603","langId":"-24","currentPage":["1",f"{page}"],"storeId":"11352","top":"Y"}
+
+    headers = {
+        "cookie": "aka-zp=; bm_sv=EACC3781CED72A556E83102E4FC3207E~vSi82eXkQb%2BRxp47M30QqYCbDgT%2F%2FSIFnW9OnQbw%2BKTmPeP28g0UqxX%2F8xoJMeRNek%2BJe5WxjQsHs2q8suD8cMBINVVRxFrPwmbkVwFsKePuW2ZoNUGIBf%2FHiUPxvYyZyoEMlOTpX2%2FZjh7v4T54ZDvE8ytK0M0MdFibpO5LtZU%3D; TS011f624f=015966d29282f52837a6cb432eca2b442247c3a5e38a56045004d4b419fc6b5834f6d4457b514f9fbdb12b01798ce042c2f16fa84cddef75d2395df1f0346f06405eaffc6ab703bb3c4e926ed75ae13263d5d38d01cf9adec57c8fec9dbfa94079eb39a270e942df12cfd3dc77954dd6e51af85ebda2c4cc33678d83c5ae05b4cb43ca65f444d8f2fdb78578aa214647172d49d7a19211a1971798ba349b59f6f1f57f3348d2d7c98ecc6935c0aeea500d5d57d5b058c22695c2210fd24cdafd1cf1535f5fd5327378e286a2b3e5f1bda97b5b82135ace3200b84e8a92f257191271c75792ef486681fbd18d17833dc7fbd8d55e9954a7327513ce6f83043d4ef650ff64436688500a82cb7c5eb650551092ad5d00aba8f5ed6b877001b116749ad8d89cd6ebedf4c5a1b55ef372d6da7b6eb8b55c",
+        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:92.0) Gecko/20100101 Firefox/92.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Connection": "keep-alive",
+        "Referer": "https://www.sunglasshut.com/uk/mens-sunglasses",
+        "Cookie": "JSESSIONID=0000iNFLuwGY83ysSXRBXzt3yjL:1c7qtp224; REFERRER=https%3A%2F%2Fwww.google.com%2F; WC_PERSISTENT=iPwLvaZpFBTSYP2xP%2B%2BoDCN80FkSjT3bcJKnQwFX29A%3D%3B2021-10-07+16%3A22%3A20.376_1633623740371-454963_10152_-1002%2C-1%2CUSD_10152; metroCode=0; COUNTRY=JP; COUNTRY_REDIRECT=true; DISPLAY_MODAL=false; GEO_LOCATION=JP|null|null|null; CATALOG_ASSORTMENT=SGH; WC_SESSION_ESTABLISHED=true; WC_AUTHENTICATION_-1002=-1002%2C5mduE4auFesN87pDyNccBg3A3LZom4jI7UYlAbvrvHg%3D; WC_ACTIVEPOINTER=-1%2C10152; WC_USERACTIVITY_-1002=-1002%2C10152%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C905770320%2C8F3DIXChUjixBORtpgOtLGJV5CRfoMfxgrKsAR0YSGanGqbL0BydhWcYYFEmvir2I0bR9kxzD1lfxFtvZLqaJdnhuRdZG%2FITdMeudnzItKrBbY5DeM42hhNsJkszsi5vogoooIfweZ9ygIDw0m41E7zyh4zzWXJgeOWyZNGosV6d4UnJXJbhzCaeUENYyiGIv5ihzXo%2BS%2B2PYgs3hdKFVVhEW%2FsYs1i5%2F3mo3By77CJ%2FBM8iUgL4ZyqeZTX0rjwG; WC_GENERIC_ACTIVITYDATA=[10075904510%3Atrue%3Afalse%3A0%3Ap8OhhbYklLL4z2lWNr4bkcGU0Zglv6hc4xEBjHq%2Fw3U%3D][com.ibm.commerce.context.ExternalCartContext|null][com.ibm.commerce.context.entitlement.EntitlementContext|4000000000000000011%264000000000000000011%26null%26-2000%26null%26null%26null][com.ibm.commerce.store.facade.server.context.StoreGeoCodeContext|null%26null%26null%26null%26null%26null][com.ibm.commerce.catalog.businesscontext.CatalogContext|20602%26null%26false%26false%26false][CTXSETNAME|Store][com.ibm.commerce.context.base.BaseContext|10152%26-1002%26-1002%26-1][com.ibm.commerce.context.audit.AuditContext|1633623740371-454963][com.ibm.commerce.context.experiment.ExperimentContext|null][com.sgh.commerce.findinstore.context.FindInStoreDefaultStoreContext|null][com.ibm.commerce.giftcenter.context.GiftCenterContext|null%26null%26null][com.ibm.commerce.context.globalization.GlobalizationContext|-1%26USD%26-1%26USD]; TS011f624f=015966d292a5fe17924c3fa03152edcb0375d8603c2f46154de002c633d0c9a4bcb90ae320627ec7978075b8280e16b5e4511f599e9b44f694d3dbeee20cba14610d7b200c51a27626a006d0ed1828e0431d5fc399e8f8f3e816eaf33c247f74a754ebdbdbdac06338342cce116b1cf65eed50bdb41e116d0e55f4a2256b2d586c6b2b568b6d2f384442e462aade7d0d34ead69de9d19c99d5dfec4e7a1e966fbc01e4301b7a64fd655c3e0df5b97292c5799c9b5c88d75066a04037258e3e94d2d50ff5d9e36500e11a75efcbc6977724d79a8dcb87543711fcf79d8fcf5bf8cb5584db3f5f07e69b8e6f2c389aeb0d1d2f8a3072ea84c624e1c56a2bb8566600ce59c68d0b110529b1c0cf7dcb22c8435c0b849b90090c0d250d39dcf21ef2c519e559fa9b1ce63f166212a91ee8118da798260c; aka-cc=IN; aka-ct=JAIPUR; aka-zp=; ak_bmsc=0D336A9CDDDE8880FFC67A0AF3CE18BD~000000000000000000000000000000~YAAQPoksMRMWBlR8AQAAyY+QWw27lghktxVy0cAHZuXyjqKpOVKFybCBT7v04O6hq1xjfWPafLg31DLGEzvF7k/CM7HocTSeuRaY5u0poRxtZl9Vx760PoP/IppJpkCLG6951u5NzRS9DKLwQuW+DKq1Ms8jkYnERjFjCmAwFiBKM3ZfSypxJKfVDpOiNOPteFK/rRuzWPImjHunNHkbofhaDIAO7YA8DwaI1b55+o4iF5oY+GyOEisZynNynKKfDhXwG/2V4F9ql52s4LP4Lhx8J7dVgyHxqpMQao6ZzjLyBOMKhpoxRJ/j4i+fK0VH6tHE1Vx+cqEG2v3bwVPil4NtohUfbL/d6ZPANL478XGPxxkIsIl3s53yA8vYbcTFm3a86WOKzU6vycZOGPdXZDA7J6+fbx9Ducb7v6RBAB82Qy0dw+x3hTq5tE36RMCwIXH4h50ChJfunnLkLJul71EaXm3i1f4NjrBLVoSouqYWSjCTC/HEt2KfooNZqQ1N74Egw1iE0I5yRB9cJy6ERuPRhkXJc/lvxw==; forterToken=dc7a47c907b940679282e289839d3788_1633623835980__UDF43_6; ftr_ncd=6; SGPF=3PbTzTky4G0IwLsY_rJTwGe7FrQjqt9Rc5hA-w05T98csi2K3Ub-Vxg; dtCookie=v_4_srv_4_sn_LHO6M8I5GMC05R6TI1I2GATT9DD1R6U6_app-3Ab359c07662f0b428_0_ol_0_perc_100000_mul_1; rxVisitor=1633623765093K59IL2094EVP5P1AT7AM6OD1ODVBESB0; dtPC=4$423765087_206h1p4$423833985_339h1vRBBAVPASMUHPOHRJSAJOQVSMIPQFLOAO-0e1; rxvt=1633625566447|1633623765096; __wid=546129594; dtSa=-; dtLatC=958; sgh-desktop-facet-state-plp=categoryid:undefined|gender:true|brands:partial|polarized:true|price:true|frame-shape:partial|color:true|face-shape:false|fit:false|materials:false|lens-treatment:false; sgh-desktop-facet-state-search=; bm_sv=EACC3781CED72A556E83102E4FC3207E~vSi82eXkQb+Rxp47M30QqYCbDgT//SIFnW9OnQbw+KTmPeP28g0UqxX/8xoJMeRNek+Je5WxjQsHs2q8suD8cMBINVVRxFrPwmbkVwFsKeOyGCO0tQTllNSPEJPiGegamUI4itgQPSoMUDk44egFnSL7QpiSX1xG6HfTXup8Xe4=; rxVisitor=1633623765093K59IL2094EVP5P1AT7AM6OD1ODVBESB0; facets=; dtSa=true%7CH%7C-1%7C%5Bmenu%5D%20to%20value%20%5BUnited%20Kingdom%5D%7C-%7C1633623808567%7C423765087_206%7Chttps%3A%2F%2Fwww.sunglasshut.com%2Fus%2Fmens-sunglasses%7CMen%27s%20Sunglasses%20-%20Designer%20%26%20Fashion%20Sunglasses%20%5Ep%20Sunglass%20Hut%C2%AE%7C1633623772178%7C%7C; mjx.menu=renderer%3ANativeMML%26%3Bsemantics%3Atrue%26%3Bcontext%3ABrowser%26%3Bzoom%3ANone; cookiePolicy=true",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "TE": "trailers"
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+
+    print(response.status_code)
+
+    pageSunglasses=response.json()
+    allSunglasses.extend(pageSunglasses['plpView']['products']['products']['product'])
+
+data=pd.DataFrame(allSunglasses)
+print(data.shape)
+# used insomania for headers and querystring generation

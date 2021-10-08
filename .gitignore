@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 logindetails.py
+flask-apps
 # C extensions
 *.so
 
