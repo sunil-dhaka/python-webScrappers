@@ -23,7 +23,9 @@ def getASINS(query,pageCount=10):
     return asins
 
 query=input('which product? ')
-asins=getASINS(query)
+asins=getASINS(query)#can try out to get more pages
+'''with open('asins.txt','w') as f:
+    f.write('\n'.join(asins))'''
 print(len(asins))
 sleep(5)
 queryData=[]
@@ -31,18 +33,13 @@ for asin in asins:
     try:
         prod=amzScrapper() 
         queryData.append(prod.extractor(asin))
-        '''print('sleeping ...')
-        sleep(5)'''
-        # sleep also can be avoided as this was not due to bot(that amz might detect we are automating) issue
         print(asin)
         print(queryData[-1])
-        # can not scrape more than few elements that is some bullshit
-        # might have to try out ````rotating proxies````
-        # actually there was no issue with proxy in fact those asins were not all actually asins
-        # so with try-except it was just nice and easy
     except Exception as e:
         print(e)
 print(len(queryData))
 queryDf=pd.DataFrame(queryData)
 queryDf.to_csv('-'.join(query.split(' '))+'.csv',index=False)
 print(queryData[0])
+# I think with some time given it might not give that none type error for some asins
+# also function is not stopping even after pages stops comming through
