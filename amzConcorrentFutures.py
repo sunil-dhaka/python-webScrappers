@@ -103,9 +103,21 @@ def extractor(asin):
         3. some products don't have reviews also, so that also can damp numbers of products getting back
         4. without price I got 47 out of 60, and with price was getting only about 20
         '''
+
+        '''
+        rather use ourprice
+        as deals are on very few products I was using wrong css selectoe all along to get prices
+        to include both have used a if-else condition
+        '''
+        
+        if r.html.find('span#priceblock_ourprice',first=True)!=None:
+            price=r.html.find('span#priceblock_ourprice',first=True).text.strip().replace(',','')
+        else:
+            price=r.html.find('span#priceblock_dealprice',first=True).text.strip().replace(',','')
         data={
             'name':r.html.find('span#productTitle',first=True).text.strip(),
             #'price':r.html.find('span#priceblock_dealprice',first=True).text.strip(),
+            'price':price,
             'return':r.html.find('div#RETURNS_POLICY',first=True).text.strip(),
             'review':r.html.find('span#acrCustomerReviewText',first=True).text.strip(),
         }
