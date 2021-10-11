@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as bs
-from requests.api import head
+import gspread
 
 def yellScrapper(businessQuery,location,totalPages=5):
     baseURL='https://www.yell.com'
@@ -47,3 +47,13 @@ totalPages=int(input('how many pages -- '))
 businessData=yellScrapper(businessQuery,location,totalPages)
 print('Got total results  ',len(businessData))
 print('first five -- ',businessData[0:5])
+
+def gSheet(productList):
+    googleCreds=gspread.service_account(filename='googleSheetsCreds.json')
+    googleSheet=googleCreds.open('yellPagesUK').sheet1
+    for i in range(len(productList)):
+        product=productList[i]
+        googleSheet.append_row([str(product['name']),str(product['category']),str(product['meta']),str(product['website'])])
+    return None
+
+gSheet(businessData)

@@ -1,9 +1,12 @@
+# added
+googleSheetsCreds.json
+logindetails.py
+flask-apps
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-logindetails.py
-flask-apps
 # C extensions
 *.so
 
