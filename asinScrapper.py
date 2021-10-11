@@ -17,10 +17,13 @@ class amzScrapper:
 
     def extractor(self,asin):
         r=self.amzsessoin.get(self.baseurl+str(asin),headers=self.headers)
-        data={
-            'name':r.html.find('span#productTitle',first=True).text.strip(),
-            'price':r.html.find('span#priceblock_dealprice',first=True).text.strip(),
-            'return':r.html.find('div#RETURNS_POLICY',first=True).text.strip(),
-            'review':r.html.find('span#acrCustomerReviewText',first=True).text.strip(),
-        }
-        return data
+        try:
+            data={
+                'name':r.html.find('span#productTitle',first=True).text.strip(),
+                'price':r.html.find('span#priceblock_dealprice',first=True).text.strip(),
+                'return':r.html.find('div#RETURNS_POLICY',first=True).text.strip(),
+                'review':r.html.find('span#acrCustomerReviewText',first=True).text.strip(),
+            }
+            return data
+        except:
+            pass
