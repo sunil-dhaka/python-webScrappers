@@ -66,7 +66,8 @@ def main():
             # if link.img.get('title') is not None:
             # title='%20'.join(link.img.get('title').strip().split(' '))+'(DjJpSwami.Com).mp3'
             # src1=link.img.get('src').split('/')[-2]
-            src2=link.img.get('src').split('/')[-1].split('_')[0]
+            # src2=link.img.get('src').split('/')[-1].split('_')[0]
+            src2=link.get('href').split('/')[2]
             # src='https://djjpswami.com/siteuploads/files/'+src1+'/'+src2+'/'
             name=link.get('href').split('/')[-1].split('.')[0]+'.mp3'
             # downloader(src+title)
