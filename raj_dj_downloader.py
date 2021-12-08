@@ -53,7 +53,8 @@ def main():
         total_pages=int(total_pages)
     else:
         total_pages=1
-
+    # already_there_songs=os.listdir()
+    
     for page in range(total_pages):
         print(f'working on page -- {page+1}')
         page_url=f'https://djjpswami.com/filelist/118/rajasthani_dj_remix_songs/a2z/{page+1}.html'
@@ -62,15 +63,16 @@ def main():
         links=soup.find('div',{'class':'catList'}).find_all('a')
         for link in links:
             # links is found manually and then generalized
-            if link.img.get('title') is not None:
-                title='%20'.join(link.img.get('title').strip().split(' '))+'(DjJpSwami.Com).mp3'
-                # src1=link.img.get('src').split('/')[-2]
-                src2=link.img.get('src').split('/')[-1].split('_')[0]
-                # src='https://djjpswami.com/siteuploads/files/'+src1+'/'+src2+'/'
-                name=link.get('href').split('/')[-1].split('.')[0]+'.mp3'
-                # downloader(src+title)
-                downloader(f'https://djjpswami.com/files/download/id/{src2}',name)
-                # print(src+title)
+            # if link.img.get('title') is not None:
+            # title='%20'.join(link.img.get('title').strip().split(' '))+'(DjJpSwami.Com).mp3'
+            # src1=link.img.get('src').split('/')[-2]
+            src2=link.img.get('src').split('/')[-1].split('_')[0]
+            # src='https://djjpswami.com/siteuploads/files/'+src1+'/'+src2+'/'
+            name=link.get('href').split('/')[-1].split('.')[0]+'.mp3'
+            # downloader(src+title)
+            # if name not in already_there_songs:
+            downloader(f'https://djjpswami.com/files/download/id/{src2}',name)
+            # print(src+title)
 if __name__=='__main__':
     folder=os.path.expanduser('~')+'/Music/'+'Raj_DJ'
     dir_check(folder)
